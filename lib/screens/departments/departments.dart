@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:faculty_info/customs/custom_internal.dart';
+import 'package:faculty_info/models/faculty_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,10 +15,9 @@ class DepartmentsPage extends StatefulWidget {
 }
 
 class _DepartmentsPageState extends State<DepartmentsPage> {
-  var list, deptName, listShow, screenWidth, screenHeight;
-
-
-  TextEditingController _searchController = new TextEditingController();
+  var deptName, screenWidth, screenHeight;
+  List<FacultyModel> list;
+  List<FacultyModel> listShow;
 
 
   _fetchData() async {
@@ -34,33 +34,21 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
     _fetchData().then((value) {
       var list = json.decode(value.toString());
       list = list[deptName];
+      List<FacultyModel> listModel=[];
+      for(var l in list){
+        listModel.add(FacultyModel.fromJson(l));
+      }
       setState(() {
-        this.list = list;
+        this.list = listModel;
+        listShow = listModel;
+
       });
-    });
-    _searchController.addListener(() {
-      _searchFilter();
-    });
-  }
-
-  _searchFilter() {
-    var _faculties = list;
-
-    if (_searchController.text.isNotEmpty) {
-      _faculties.retainWhere((faculty){
-        return faculty["name"].toString().toLowerCase().contains(_searchController.text.toLowerCase());
-      });
-    }
-
-    setState(() {
-      listShow = _faculties;
     });
 
   }
 
   @override
   Widget build(BuildContext context) {
-    bool _isSearch = _searchController.text.isNotEmpty;
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -75,10 +63,9 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                 _searchFaculty(),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: _isSearch?listShow.length:list.length,
+                      itemCount: listShow.length,
                       itemBuilder: (context, index) {
-                        var fac = _isSearch?listShow[index]:list[index];
-                        return _cardView(fac);
+                        return _cardView(index);
                       },
                     ),
                 ),
@@ -95,13 +82,21 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
         decoration: InputDecoration(
           hintText: "Search....",
         ),
-        controller: _searchController,
+        onChanged: _onChanged,
       ),
     );
   }
 
+  _onChanged(String value) {
+    setState(() {
+      listShow = list.where((faculty) {
+        return faculty.name.toLowerCase().contains(value.toLowerCase());
+      }).toList();
+    });
+  }
 
-  Widget _cardView(list) {
+
+  Widget _cardView(int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
       child: Center(
@@ -119,7 +114,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      list["initial"],
+                      listShow[index].initial,
                     ),
                   ),
                 ),
@@ -128,7 +123,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                 ),
                 Expanded(
                   child: Text(
-                    list["name"],
+                    listShow[index].name,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -140,7 +135,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                 ),
                 Expanded(
                   child: Text(
-                    list["email"],
+                    listShow[index].email,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
