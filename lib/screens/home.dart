@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
             width: screenWidth * 0.9,
             child: Material(
               elevation: 7,
+              color: isDark?Color(0xff424242):Colors.white,
               borderOnForeground: true,
               borderRadius: BorderRadius.circular(20),
               child: Row(

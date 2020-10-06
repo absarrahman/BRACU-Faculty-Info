@@ -4,6 +4,7 @@ import 'package:faculty_info/customs/custom_internal.dart';
 import 'package:faculty_info/models/faculty_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class DepartmentsPage extends StatefulWidget {
   final deptName;
@@ -19,7 +20,6 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
   List<FacultyModel> list;
   List<FacultyModel> listShow;
 
-
   _fetchData() async {
     final url =
         "https://raw.githubusercontent.com/absarrahman/DataStuffs/master/faculties.json";
@@ -34,17 +34,15 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
     _fetchData().then((value) {
       var list = json.decode(value.toString());
       list = list[deptName];
-      List<FacultyModel> listModel=[];
-      for(var l in list){
+      List<FacultyModel> listModel = [];
+      for (var l in list) {
         listModel.add(FacultyModel.fromJson(l));
       }
       setState(() {
         this.list = listModel;
         listShow = listModel;
-
       });
     });
-
   }
 
   @override
@@ -59,18 +57,18 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
         child: list == null
             ? loading()
             : Column(
-              children: [
-                _searchFaculty(),
-                Expanded(
-                  child: ListView.builder(
+                children: [
+                  _searchFaculty(),
+                  Expanded(
+                    child: ListView.builder(
                       itemCount: listShow.length,
                       itemBuilder: (context, index) {
                         return _cardView(index);
                       },
                     ),
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
       ),
     );
   }
@@ -80,6 +78,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         decoration: InputDecoration(
+          icon: Icon(Icons.search),
           hintText: "Search....",
         ),
         onChanged: _onChanged,
@@ -95,7 +94,6 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
     });
   }
 
-
   Widget _cardView(int index) {
     return Padding(
       padding: const EdgeInsets.only(top: 20.0),
@@ -104,41 +102,45 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
           height: screenHeight * 0.20,
           width: screenWidth * 0.9,
           child: Material(
+            color: isDark ? Color(0xff6b6b6b) : Colors.white,
             elevation: 7,
             borderOnForeground: true,
             borderRadius: BorderRadius.circular(20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "${listShow[index].initial}",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "${listShow[index].name}",
+                    style: TextStyle(
+                      fontSize: 20,
+                      // fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () => _launchEmail(listShow[index].email),
                     child: Text(
-                      listShow[index].initial,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: screenWidth * 0.14,
-                ),
-                Expanded(
-                  child: Text(
-                    listShow[index].name,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: screenWidth * 0.14,
-                ),
-                Expanded(
-                  child: Text(
-                    listShow[index].email,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      "${listShow[index].email}",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontSize: 20,
+                        color: isDark ? Color(0xff191970) : Colors.blue,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),
@@ -148,5 +150,14 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
         ),
       ),
     );
+  }
+
+  _launchEmail(String mail) async {
+    var url = "mailto:$mail";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw "Failed";
+    }
   }
 }
