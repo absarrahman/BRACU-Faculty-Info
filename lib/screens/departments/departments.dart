@@ -8,8 +8,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DepartmentsPage extends StatefulWidget {
   final deptName;
+  final deptLink;
 
-  DepartmentsPage(this.deptName);
+  DepartmentsPage({this.deptName,this.deptLink});
 
   @override
   _DepartmentsPageState createState() => _DepartmentsPageState();
@@ -22,7 +23,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
 
   _fetchData() async {
     final url =
-        "https://raw.githubusercontent.com/absarrahman/DataStuffs/master/faculties.json";
+        widget.deptLink;
     var response = await http.get(url);
     return response.body;
   }
@@ -138,7 +139,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontSize: 20,
-                        color: isDark ? Color(0xff191970) : Colors.blue,
+                        color: isDark ? Colors.blue[400] : Colors.blue,
                       ),
                       textAlign: TextAlign.center,
                     ),
