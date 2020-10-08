@@ -74,10 +74,6 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
     );
   }
 
-  Widget _typeWidget(int index) {
-    return Radio(value: index, groupValue: null, onChanged: (val)=>{});
-  }
-
   _searchFaculty() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
