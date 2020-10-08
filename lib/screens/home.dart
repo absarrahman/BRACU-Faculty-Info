@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:faculty_info/customs/custom_internal.dart';
 import 'package:faculty_info/models/department_model.dart';
 import 'package:faculty_info/screens/departments/departments.dart';
+import 'package:faculty_info/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -44,7 +45,11 @@ class _HomePageState extends State<HomePage> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(icon: Icon(Icons.settings), onPressed: ()=>testCheck())
+        ],
+      ),
       body: Container(
         child: deptNameList == null
             ? loading()
@@ -53,9 +58,14 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) => _departmentCard(index),
               ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Text("*"),
-        onPressed: () => changeBrightness(context),
+    );
+  }
+
+  testCheck() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SettingsPage(),
       ),
     );
   }

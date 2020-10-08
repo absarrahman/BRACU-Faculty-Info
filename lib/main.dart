@@ -1,5 +1,5 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:faculty_info/screens/home.dart';
+import 'package:faculty_info/screens/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,7 +18,7 @@ class BracuFacultyApp extends StatelessWidget {
       themedWidgetBuilder: (context, theme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: theme,
-        home: HomePage(),
+        home: SplashScreen(),
       ),
     );
   }
