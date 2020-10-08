@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
         onTap: () => _redirectRoute(index),
         child: Center(
           child: Container(
-            height: screenHeight * 0.20,
+            height: screenHeight * 0.10,
             width: screenWidth * 0.9,
             child: Material(
               elevation: 7,

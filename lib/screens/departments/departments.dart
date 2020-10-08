@@ -74,6 +74,10 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
     );
   }
 
+  Widget _typeWidget(int index) {
+    return Radio(value: index, groupValue: null, onChanged: (val)=>{});
+  }
+
   _searchFaculty() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -90,7 +94,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
   _onChanged(String value) {
     setState(() {
       listShow = list.where((faculty) {
-        return faculty.name.toLowerCase().contains(value.toLowerCase());
+        return ((faculty.name.toLowerCase().contains(value.toLowerCase()))||(faculty.initial.toLowerCase().contains(value.toLowerCase())));
       }).toList();
     });
   }
