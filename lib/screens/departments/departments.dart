@@ -139,17 +139,19 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: SelectableText(
-                    "${listShow[index].email}",
-                    onTap: () => _launchEmail(listShow[index].email),
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontSize: 20,
-                      color: isDark ? Colors.blue[400] : Colors.blue,
+                  child: GestureDetector(
+                    onDoubleTap: () => _launchEmail(listShow[index].email),
+                    child: SelectableText(
+                      "${listShow[index].email}",
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontSize: 20,
+                        color: isDark ? Colors.blue[400] : Colors.blue,
+                      ),
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      scrollPhysics: ClampingScrollPhysics(),
                     ),
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                    scrollPhysics: ClampingScrollPhysics(),
                   ),
                 ),
               ],
