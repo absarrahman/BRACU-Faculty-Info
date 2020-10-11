@@ -57,27 +57,36 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         child: deptNameList == null
             ? loading()
-            : ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemCount: deptNameList.length + 1,
-                itemBuilder: (context, index) => index == 0
-                    ? Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Hero(
-                          tag: "logo",
-                          child: Image.asset(
-                            isDark
-                                ? "assets/images/bracu_dark.png"
-                                : "assets/images/bracu_light.png",
-                            height: 200,
-                            width: 200,
+            : RefreshIndicator(
+                onRefresh: _refreshData,
+                child: ListView.builder(
+                  itemCount: deptNameList.length + 1,
+                  itemBuilder: (context, index) => index == 0
+                      ? Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Hero(
+                            tag: "logo",
+                            child: Image.asset(
+                              isDark
+                                  ? "assets/images/bracu_dark.png"
+                                  : "assets/images/bracu_light.png",
+                              height: 200,
+                              width: 200,
+                            ),
                           ),
-                        ),
-                      )
-                    : _departmentCard(index - 1),
+                        )
+                      : _departmentCard(index - 1),
+                ),
               ),
       ),
     );
+  }
+
+  Future<void> _refreshData() async {
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {
+      _fetchData();
+    });
   }
 
   redirectSettings() {
