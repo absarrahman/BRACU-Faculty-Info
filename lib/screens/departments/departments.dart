@@ -101,7 +101,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
       padding: const EdgeInsets.only(top: 20.0),
       child: Center(
         child: Container(
-          height: screenHeight * 0.20,
+          height: 150,
           width: screenWidth * 0.9,
           child: Material(
             color: isDark ? Color(0xff6b6b6b) : Colors.white,
@@ -119,6 +119,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.visible,
                   ),
                 ),
@@ -130,7 +131,9 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                       fontSize: 20,
                       // fontWeight: FontWeight.bold,
                     ),
+                    textAlign: TextAlign.center,
                     overflow: TextOverflow.visible,
+                    maxLines: 1,
                   ),
                 ),
                 Padding(
@@ -144,6 +147,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                         fontSize: 20,
                         color: isDark ? Colors.blue[400] : Colors.blue,
                       ),
+                      maxLines: 2,
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.visible,
                     ),

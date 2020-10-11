@@ -46,9 +46,11 @@ class _HomePageState extends State<HomePage> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        title: Text("Departments"),
+        centerTitle: true,
         backgroundColor: primaryColor,
         actions: [
-          IconButton(icon: Icon(Icons.settings), onPressed: ()=>testCheck())
+          IconButton(icon: Icon(Icons.settings), onPressed: ()=>redirectSettings())
         ],
       ),
       body: Container(
@@ -62,7 +64,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  testCheck() {
+  redirectSettings() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -78,7 +80,7 @@ class _HomePageState extends State<HomePage> {
         onTap: () => _redirectRoute(index),
         child: Center(
           child: Container(
-            height: screenHeight * 0.10,
+            height: 74,
             width: screenWidth * 0.9,
             child: Material(
               elevation: 7,
