@@ -8,6 +8,8 @@ checkTheme(context) {
   isDark = Theme.of(context).brightness == Brightness.dark ? true : false;
 }
 
+Color primaryColor = Color(0xff253494);
+
 changeBrightness(context) {
   DynamicTheme.of(context).setBrightness(
       Theme.of(context).brightness == Brightness.dark

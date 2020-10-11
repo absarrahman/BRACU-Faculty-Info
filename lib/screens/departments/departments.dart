@@ -52,6 +52,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
     screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: Text(deptName),
       ),
       body: Container(
@@ -118,6 +119,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
+                    overflow: TextOverflow.visible,
                   ),
                 ),
                 Padding(
@@ -128,6 +130,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                       fontSize: 20,
                       // fontWeight: FontWeight.bold,
                     ),
+                    overflow: TextOverflow.visible,
                   ),
                 ),
                 Padding(
@@ -142,6 +145,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                         color: isDark ? Colors.blue[400] : Colors.blue,
                       ),
                       textAlign: TextAlign.center,
+                      overflow: TextOverflow.visible,
                     ),
                   ),
                 ),

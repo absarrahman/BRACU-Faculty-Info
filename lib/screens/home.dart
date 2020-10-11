@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         actions: [
           IconButton(icon: Icon(Icons.settings), onPressed: ()=>testCheck())
         ],
