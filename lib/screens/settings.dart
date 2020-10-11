@@ -17,8 +17,21 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Hero(
+                tag: "logo",transitionOnUserGestures: true,
+                child: Image.asset(
+                  isDark
+                      ? "assets/images/bracu_dark.png"
+                      : "assets/images/bracu_light.png",
+                  height: 250,
+                  width: 250,
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: _changeTheme(),

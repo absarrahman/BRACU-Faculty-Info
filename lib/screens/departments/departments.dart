@@ -63,6 +63,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                   _searchFaculty(),
                   Expanded(
                     child: ListView.builder(
+                      physics: BouncingScrollPhysics(),
                       itemCount: listShow.length,
                       itemBuilder: (context, index) {
                         return _cardView(index);
@@ -140,7 +141,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () => _launchEmail(listShow[index].email),
-                    child: Text(
+                    child: SelectableText(
                       "${listShow[index].email}",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
@@ -149,7 +150,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                       ),
                       maxLines: 2,
                       textAlign: TextAlign.center,
-                      overflow: TextOverflow.visible,
+                      scrollPhysics: ClampingScrollPhysics(),
                     ),
                   ),
                 ),

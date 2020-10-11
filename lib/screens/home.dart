@@ -50,15 +50,31 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         backgroundColor: primaryColor,
         actions: [
-          IconButton(icon: Icon(Icons.settings), onPressed: ()=>redirectSettings())
+          IconButton(
+              icon: Icon(Icons.settings), onPressed: () => redirectSettings())
         ],
       ),
       body: Container(
         child: deptNameList == null
             ? loading()
             : ListView.builder(
-                itemCount: deptNameList.length,
-                itemBuilder: (context, index) => _departmentCard(index),
+                physics: BouncingScrollPhysics(),
+                itemCount: deptNameList.length + 1,
+                itemBuilder: (context, index) => index == 0
+                    ? Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Hero(
+                          tag: "logo",
+                          child: Image.asset(
+                            isDark
+                                ? "assets/images/bracu_dark.png"
+                                : "assets/images/bracu_light.png",
+                            height: 200,
+                            width: 200,
+                          ),
+                        ),
+                      )
+                    : _departmentCard(index - 1),
               ),
       ),
     );
