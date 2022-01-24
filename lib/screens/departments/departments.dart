@@ -5,6 +5,7 @@ import 'package:faculty_info/models/faculty_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class DepartmentsPage extends StatefulWidget {
   final deptName;
@@ -22,8 +23,9 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
   List<FacultyModel>? listShow;
 
   _fetchData() async {
-    final url =
-        Uri.parse(widget.deptLink);
+    /*final url =
+        Uri.parse(widget.deptLink);*/
+    final url = Uri.parse("${dotenv.env['BASE_URL']}dep=${widget.deptLink}");
     var response = await http.get(url);
     return response.body;
   }
@@ -34,7 +36,6 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
     deptName = widget.deptName;
     _fetchData().then((value) {
       var list = json.decode(value.toString());
-      list = list[deptName];
       List<FacultyModel> listModel = [];
       for (var l in list) {
         listModel.add(FacultyModel.fromJson(l));

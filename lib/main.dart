@@ -1,9 +1,11 @@
 import 'package:dynamic_themes/dynamic_themes.dart';
 import 'package:faculty_info/screens/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'customs/app_themes.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(BracuFacultyApp());
 }
 
