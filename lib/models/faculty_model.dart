@@ -1,5 +1,5 @@
 class FacultyModel {
-  String initial,name,email;
+  String? initial,name,email;
 
   FacultyModel(this.initial, this.name, this.email);
 
