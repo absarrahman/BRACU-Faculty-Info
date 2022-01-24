@@ -82,9 +82,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _refreshData() async {
-    await Future.delayed(Duration(seconds: 2));
-    setState(() {
-      _fetchData();
+    setState(() async {
+      await _fetchData();
     });
   }
 
