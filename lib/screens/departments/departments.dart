@@ -18,12 +18,12 @@ class DepartmentsPage extends StatefulWidget {
 
 class _DepartmentsPageState extends State<DepartmentsPage> {
   var deptName, screenWidth, screenHeight;
-  List<FacultyModel> list;
-  List<FacultyModel> listShow;
+  List<FacultyModel>? list;
+  List<FacultyModel>? listShow;
 
   _fetchData() async {
     final url =
-        widget.deptLink;
+        Uri.parse(widget.deptLink);
     var response = await http.get(url);
     return response.body;
   }
@@ -64,7 +64,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                   Expanded(
                     child: ListView.builder(
                       physics: BouncingScrollPhysics(),
-                      itemCount: listShow.length,
+                      itemCount: listShow!.length,
                       itemBuilder: (context, index) {
                         return _cardView(index);
                       },
@@ -91,8 +91,8 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
 
   _onChanged(String value) {
     setState(() {
-      listShow = list.where((faculty) {
-        return ((faculty.name.toLowerCase().contains(value.toLowerCase()))||(faculty.initial.toLowerCase().contains(value.toLowerCase())));
+      listShow = list!.where((faculty) {
+        return ((faculty.name!.toLowerCase().contains(value.toLowerCase()))||(faculty.initial!.toLowerCase().contains(value.toLowerCase())));
       }).toList();
     });
   }
@@ -115,7 +115,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "${listShow[index].initial}",
+                    "${listShow![index].initial??"N/A"}",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -127,7 +127,7 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "${listShow[index].name}",
+                    "${listShow![index].name}",
                     style: TextStyle(
                       fontSize: 20,
                       // fontWeight: FontWeight.bold,
@@ -140,9 +140,9 @@ class _DepartmentsPageState extends State<DepartmentsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
-                    onDoubleTap: () => _launchEmail(listShow[index].email),
+                    onDoubleTap: () => _launchEmail(listShow![index].email!),
                     child: SelectableText(
-                      "${listShow[index].email}",
+                      "${listShow![index].email}",
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontSize: 20,

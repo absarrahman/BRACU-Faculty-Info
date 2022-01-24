@@ -1,5 +1,5 @@
 class DepartmentModel {
-  String name,link;
+  String? name,link;
 
   DepartmentModel(this.name, this.link);
 

@@ -14,11 +14,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var screenHeight, screenWidth;
-  List<DepartmentModel> deptNameList;
+  List<DepartmentModel>? deptNameList;
 
   _fetchData() async {
-    final url =
-        "https://raw.githubusercontent.com/absarrahman/DataStuffs/master/dept_status.json";
+    final url = Uri.parse("https://raw.githubusercontent.com/absarrahman/DataStuffs/master/dept_status.json");
     var response = await http.get(url);
     return response.body;
   }
@@ -60,7 +59,7 @@ class _HomePageState extends State<HomePage> {
             : RefreshIndicator(
                 onRefresh: _refreshData,
                 child: ListView.builder(
-                  itemCount: deptNameList.length + 1,
+                  itemCount: deptNameList!.length + 1,
                   itemBuilder: (context, index) => index == 0
                       ? Padding(
                           padding: const EdgeInsets.all(15.0),
@@ -117,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    deptNameList[index].name,
+                    deptNameList![index].name ?? "N/A",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -137,8 +136,8 @@ class _HomePageState extends State<HomePage> {
       context,
       MaterialPageRoute(
         builder: (context) => DepartmentsPage(
-          deptName: deptNameList[index].name,
-          deptLink: deptNameList[index].link,
+          deptName: deptNameList![index].name,
+          deptLink: deptNameList![index].link,
         ),
       ),
     );
