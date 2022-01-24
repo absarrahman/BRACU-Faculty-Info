@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _departmentCard(int index) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 20.0,bottom: 10.0),
       child: InkWell(
         onTap: () => _redirectRoute(index),
         child: Center(
